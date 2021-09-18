@@ -90,7 +90,7 @@ def randomUsingProbability (opBoard, counter, hit, empty, probBoard, last_hit, m
             exploredBoard[row,col] = 1
             probBoard[row,col]=-10 # random hit
             exploredBoard[row,col]=1
-            generate_probBoard(probBoard, last_hit)
+            probBoard = generate_probBoard(probBoard, last_hit)
         else:
             probBoard[row,col]=-1 # miss
             exploredBoard[row,col]=2
