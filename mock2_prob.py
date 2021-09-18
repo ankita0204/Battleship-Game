@@ -52,27 +52,36 @@ def generateMove(probBoard):
 def generate_probBoard(probBoard, last_hit):
     if last_hit[0]>=0 and last_hit[0]<=9 and last_hit[1]+1>=0 and last_hit[1]+1<=9:
         if probBoard[last_hit[0], last_hit[1]+1] == 0:
+            probBoard[last_hit[0], last_hit[1]+1] = 0.25
+        elif probBoard[last_hit[0], last_hit[1]+1] > 0:
             probBoard[last_hit[0], last_hit[1]+1] += 0.25
 
     if last_hit[0]>=0 and last_hit[0]<=9 and last_hit[1]-1>=0 and last_hit[1]-1<=9:
         if probBoard[last_hit[0], last_hit[1]-1] == 0:
+            probBoard[last_hit[0], last_hit[1]-1] = 0.25
+        elif probBoard[last_hit[0], last_hit[1]-1] > 0:
             probBoard[last_hit[0], last_hit[1]-1] += 0.25
     
     if last_hit[0]+1>=0 and last_hit[0]+1<=9 and last_hit[1]>=0 and last_hit[1]<=9:
         if probBoard[last_hit[0]+1, last_hit[1]] == 0:
+            probBoard[last_hit[0]+1, last_hit[1]] = 0.25
+        elif probBoard[last_hit[0]+1, last_hit[1]] > 0:
             probBoard[last_hit[0]+1, last_hit[1]] += 0.25
 
     if last_hit[0]-1>0 and last_hit[0]<=9 and last_hit[1]-1>=0 and last_hit[1]<=9:
         if probBoard[last_hit[0]-1, last_hit[1]] == 0:
+            probBoard[last_hit[0]-1, last_hit[1]] = 0.25
+        elif probBoard[last_hit[0]-1, last_hit[1]] > 0:
             probBoard[last_hit[0]-1, last_hit[1]] += 0.25
-    return(probBoard)
+            
+    return probBoard
 
 def randomUsingProbability (opBoard, counter, hit, empty, probBoard, last_hit, missed, exploredBoard):
     if hit >= 17 or counter>=100:
         print("Number of Turns: ",counter)
         print("Sucessfull Hits: ",hit)
-        generateGraph(exploredBoard, counter)
-        #print(probBoard)
+        #generateGraph(exploredBoard, counter)
+        print(probBoard)
         return
     
     if (last_hit == -1): #last hit was miss && don't know have a place to check, so we take random guess
@@ -81,8 +90,8 @@ def randomUsingProbability (opBoard, counter, hit, empty, probBoard, last_hit, m
         empty.remove(random_num)
         row = int(random_num[0])
         col = int(random_num[1])
-        generateGraph(exploredBoard, counter)
-        #print(probBoard)
+        #generateGraph(exploredBoard, counter)
+        print(probBoard)
 
         if opBoard[row,col] == 1:    
             hit += 1
@@ -101,8 +110,8 @@ def randomUsingProbability (opBoard, counter, hit, empty, probBoard, last_hit, m
             empty.remove(position)     
             row = nextHit[0]
             col = nextHit[1]
-            generateGraph(exploredBoard, counter)
-            #print(probBoard)
+            #generateGraph(exploredBoard, counter)
+            print(probBoard)
             
             if probBoard[row,col] == 0:  #out of guesses
                 last_hit = -1
